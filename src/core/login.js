@@ -1,8 +1,9 @@
 import React , { Component, Fragment }  from 'react'
-import { ImageBackground, Button ,SafeAreaView , StyleSheet, Text, View, Image , TextInput ,Alert } from "react-native";
+import { ImageBackground ,SafeAreaView , StyleSheet, Text, View, Image , TextInput ,Alert } from "react-native";
 import { makeStyles } from "@material-ui/core/styles";
 import { Formik } from 'formik'
-import * as yup from 'yup'
+import * as yup from 'yup';
+import { Button,  } from 'react-native-paper'
 
 
 
@@ -45,7 +46,7 @@ export default function Login({navigation}) {
 
   return (
     <View width="100%" height="100%" style={styles.main_wrapper}>
-      <ImageBackground source={require('../../assets/images/login_bg.png')} resizeMode="cover" className={styles.image} >
+      <ImageBackground source={require('../../assets/images/login_bg.png')} resizeMode="cover" style={styles.image} >
         <View  style={styles.container}>
           <View style={styles.navbar}>
             <Image source={require('../../assets/images/van_logo.png')} style={{width: 120, height:50}} />
@@ -58,12 +59,12 @@ export default function Login({navigation}) {
               </View>
                <View style={styles.rightCol}>   
                 <View style={styles.innerBox}>
-                  <View style={styles.darkbox}>
+                  <View style={styles.darkbox}> 
                     <View>
-{/*                        
-                    <Formik
+                        
+                    {/* <Formik
             onSubmit={values => console.log(values)}
-            initialValues={{ 
+            initialValues={{  
           email: '', 
           password: '' 
         }}
@@ -151,8 +152,7 @@ const styles = StyleSheet.create({
       padding : 30
     },
     leftCol : {
-      width : 50,
-    
+      width : "50%",
     },
     rightCol : {
       width : "50%",
@@ -211,10 +211,11 @@ const styles = StyleSheet.create({
       height: '100%',
       paddingBottom : 12,
       paddingTop : 30,
-      width : '100%'
+      width : '100%',
     },
     main_wrapper : {
       height: '100%',
+      backgroundColor : '#eee'
     },
     container :{
       flex: 1,
@@ -226,7 +227,7 @@ const styles = StyleSheet.create({
       paddingRight :25
     },
     navbar : {
-      height : 60
+      height : 60,
     },
     text: {
       color: "white",
