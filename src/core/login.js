@@ -1,9 +1,10 @@
 import React , { Component, Fragment }  from 'react'
-import { ImageBackground ,SafeAreaView , StyleSheet, Text, View, Image , TextInput ,Alert } from "react-native";
+import { ImageBackground ,SafeAreaView, ScrollView , StyleSheet, Text, View, Image , TextInput ,Alert } from "react-native";
 import { makeStyles } from "@material-ui/core/styles";
 import { Formik } from 'formik'
 import * as yup from 'yup';
-import { Button,  } from 'react-native-paper'
+import { Button  } from 'react-native-paper'
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 
@@ -33,10 +34,20 @@ export default function Login({navigation}) {
   const inputStyle = {
     borderWidth: 1,
     borderColor: '#4e4e4e',
-    padding: 12,
+    padding: 2,
+    paddingLeft : 15,
+    paddingHorizontal : 5,
+    borderRadius : 8,
     marginBottom: 5,
+    fontSize: 10,
+    borderColor : '#fff',
+    color : '#fff',
   };
 
+  const goHome = () =>{
+    // alert('Your Logged In');
+    navigation.navigate('Home');
+  }
   const onsubmit = values => {
     console.log('submitting form', values)
   }
@@ -45,7 +56,8 @@ export default function Login({navigation}) {
 
 
   return (
-    <View width="100%" height="100%" style={styles.main_wrapper}>
+    <SafeAreaView >
+    <ScrollView width="100%" height="100%" style={styles.main_wrapper}>
       <ImageBackground source={require('../../assets/images/login_bg.png')} resizeMode="cover" style={styles.image} >
         <View  style={styles.container}>
           <View style={styles.navbar}>
@@ -53,71 +65,79 @@ export default function Login({navigation}) {
           </View>
           <View style={styles.loginBox}>
               <View style={styles.leftCol}>
-                <Text style={styles.heading}>SAP Distribution</Text>
+                <Text style={styles.heading}>SAP {"\n"}Van Sales {"\n"}& {"\n"}Distribution</Text>
                 <Text style={styles.para}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </Text>
+                <Text  style={styles.para}>Lorem Ipsum has been the industry's standard dummy text ever
+since the 1500s, when an unknown printer took a galley of type
+and scrambled it to make a type specimen book. It has survived
+not only five centuries, but also the leap into electronic
+typesetting, remaining essentially unchanged. </Text>
                 
               </View>
                <View style={styles.rightCol}>   
                 <View style={styles.innerBox}>
                   <View style={styles.darkbox}> 
                     <View>
-                        
-                    {/* <Formik
-            onSubmit={values => console.log(values)}
-            initialValues={{  
-          email: '', 
-          password: '' 
-        }}
+                        <Text style={{ fontSize : 18, color: '#fff', paddingBottom:10 }}>Login</Text>
+                    <Formik
+                          onSubmit={values => console.log(values)}
+                          initialValues={{  
+                        email: '', 
+                        password: '' 
+                      }}
 
-       
-
-        validationSchema={yup.object().shape({
-          email: yup
-            .string()
-            .email()
-            .required(),
-          password: yup
-            .string()
-            .min(4)
-            .max(10, 'Password should not excced 10 chars.')
-            .required(),
-        })}
-       >
+                    validationSchema={yup.object().shape({
+                      email: yup
+                        .string()
+                        .email()
+                        .required(),
+                      password: yup
+                        .string()
+                        .min(4)
+                        .max(10, 'Password should not excced 10 chars.')
+                        .required(),
+                    })}
+                  >
         {({ values, handleChange, errors, setFieldTouched, touched, isValid, handleSubmit }) => (
-          <View >        
-            <TextInput
-              value={values.email}
-              style={inputStyle}
-              onChangeText={handleChange('email')}
-              onBlur={() => setFieldTouched('email')}
-              placeholder="E-mail"
-            />
-            {touched.email && errors.email &&
-              <Text style={{ fontSize: 12, color: '#FF0D10' }}>{errors.email}</Text>
-            }
-            <TextInput
-              value={values.password}
-              style={inputStyle}
-              onChangeText={handleChange('password')}
-              placeholder="Password"
-              onBlur={() => setFieldTouched('password')} 
-              secureTextEntry={true}
-             
-            />
-            {touched.password && errors.password &&
-              <Text style={{ fontSize: 12, color: '#FF0D10' }}>{errors.password}</Text>
-            }
+          <View  >        
+            <View >
+              <TextInput
+                value={values.email}
+                style={inputStyle}
+                onChangeText={handleChange('email')}
+                onBlur={() => setFieldTouched('email')}
+                placeholder="E-mail"
+                placeholderTextColor={'#fff'}
+              />
+              {touched.email && errors.email &&
+                <Text style={{ fontSize: 8, color: '#FF0D10', paddingBottom:10  }}>{errors.email}</Text>
+              }
+              <TextInput
+                value={values.password}
+                style={inputStyle}
+                onChangeText={handleChange('password')}
+                placeholder="Password"
+                onBlur={() => setFieldTouched('password')} 
+                secureTextEntry={true}
+                placeholderTextColor={'#fff'}
+              
+              />
+              {touched.password && errors.password &&
+                <Text style={{ fontSize: 8, color: '#FF0D10' }}>{errors.password}</Text>
+              }
+            </View>
 
-                  <View style={styles.loginButtons}>
-                      <Button  onClick={() => navigation.navigate('Home') }  style = {{color:'#fbac00', height : '40px'}} title="Login"/>
-                      <Button onPress={handleSubmit} style = {{color:'#fbac00', height : '40px'}} title="Signup"/>
-                  </View>
-
-
+            <View style={styles.loginButtons}>
+              <Button  onPress={() => goHome()} labelStyle={{fontSize: 10}} color='#fbac00' style = {{textTransform: 'capitalize', fontSize : 9}} >Login</Button>
+              <Button onPress={handleSubmit}   labelStyle={{fontSize: 10}}  color='#fbac00'  style = {{textTransform: 'capitalize'}} >Signup</Button>
+            </View>
             
+                  
           </View>
+          
         )}
-      </Formik>  */}
+        
+      </Formik>
                     
                     </View>
                     
@@ -129,8 +149,8 @@ export default function Login({navigation}) {
         </ImageBackground>
 
 
-    </View>
-
+    </ScrollView>
+  </SafeAreaView>
   )
 }
 
@@ -141,7 +161,6 @@ const styles = StyleSheet.create({
     color : '#fbac00'
   },  
     loginBox : {
-    
       width: '100%',
       backgroundColor : '#fff',
       borderTopLeftRadius : 40,
@@ -149,14 +168,17 @@ const styles = StyleSheet.create({
       flex : 1,
       flexDirection : 'row',
       alignItems : 'center',
-      padding : 30
+      paddingTop : 30,
+      paddingHorizontal : 10
+      // padding : 30
     },
     leftCol : {
       width : "50%",
+      paddingHorizontal : 20,
+      paddingLeft : 30
     },
     rightCol : {
       width : "50%",
-      height : "100%",
       padding : 40, 
       flex : 1,
       alignItems : 'center',
@@ -178,10 +200,11 @@ const styles = StyleSheet.create({
     },
     darkbox : {
       backgroundColor : '#444',
-      height : '100%',
+      // height : '100%',
       borderTopLeftRadius : 20,
       borderBottomRightRadius : 20,
       padding : 30,
+      paddingHorizontal : 15,
       justifyContent :'space-between',
       flexDirection : 'column'
     },  
@@ -190,27 +213,26 @@ const styles = StyleSheet.create({
       color :'#fff'
     },  
     loginButtons : {
-      flex : 1,
-      flexDirection : 'row',
-      width : '100%',
+      flexDirection: 'row',
+      width : 200,
+      paddingTop : 2,
+      alignItems : 'center',
       justifyContent : 'center',
-      color : '#f00',
-      height : 50,
-      paddingTop : 20,
-      alignItems : 'center'
+      paddingTop : 10
     },  
     heading : {
       textAlign : 'center',
       fontSize: 30,
       fontWeight: 'bold',
-      marginBottom : 20
+      marginBottom : 20,
+      color: '#000',
     },  
     image:{
       flex : 1,
       justifyContent:'center',
       height: '100%',
-      paddingBottom : 12,
-      paddingTop : 30,
+      // paddingBottom : 12,
+      // paddingTop : 30,
       width : '100%',
     },
     main_wrapper : {
@@ -223,6 +245,7 @@ const styles = StyleSheet.create({
       margin: 'auto', 
       width: '100%',
       height: '100%',
+      padding : 20,
       paddingLeft :25,
       paddingRight :25
     },
@@ -238,6 +261,7 @@ const styles = StyleSheet.create({
       backgroundColor: "#000000c0"
     },
     para : {
-      marginBottom :15
+      marginBottom :15,
+      fontSize : 11
     },
   });

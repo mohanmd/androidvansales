@@ -4,30 +4,30 @@ export default StyleSheet.create({
         height : '60px',
     },
     navbarInner : {
-        flex : '1',
+        flex : 1,
         flexDirection : 'row',
         alignItems : 'center',
         justifyContent : 'space-between',
-        paddingRight : '35px'
+        paddingRight : 35
     },
     headerMenu : {
-        flex : '1',
+        flex : 1,
         flexDirection : 'row',
         justifyContent : 'end',
-        gap : '20px'
+        // gap : '20px'
     },
     headerLink : {
-        fontSize : '14px',
+        fontSize : 14,
         color : '#fff'
     },
     container :{
         flex: 1,
         margin: 'auto',
-        maxWidth : '1100px',
+        // maxWidth : '1100px',
         width: '100%',
         height: '100%',
-        paddingLeft: '25px',
-        paddingRight: '0px'
+        paddingLeft: 25,
+        paddingRight: 0
     },
     main_wrapper : {
         height: '100%',
@@ -36,21 +36,21 @@ export default StyleSheet.create({
         flex : 1,
         justifyContent:'center',
         height: '100%',
-        paddingBottom : '2em',
-        paddingTop : '30px'
     },
     leftCol : {
         width : '50%',
     },
     heading : {
         textAlign : 'center',
-        fontSize: '30px',
+        fontSize: 20,
         fontWeight: 'bold',
-        marginBottom : '20px'
+        marginBottom : 20,
+        color : '#000'
     },  
     para : {
-        marginBottom :'15px',
-        color : '#444'
+        marginBottom :15,
+        color : '#444',
+        fontSize : 11
     },
  
 });

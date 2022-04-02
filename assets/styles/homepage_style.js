@@ -2,30 +2,36 @@ import { withTheme } from '@material-ui/core';
 import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
     homepage_box : {
-        height: 'calc(100vh - 130px)',
+        height : '100%',
         width: '100%',
-        borderTopLeftRadius : '40px',
-        borderBottomRightRadius : '40px',
-        // flex : 1,
+        borderTopLeftRadius : 40,
+        borderBottomRightRadius : 40,
+        flex : 1,
         // flexDirection : 'row',
         // alignItems : 'center',
-        padding : '30px',
-        paddingTop : '9px',
-        backgroundColor: '#fff6f6e3'
+        padding : 30,
+        paddingTop : 9,
+        backgroundColor: '#fff6f6e3',
+        marginBottom : 40
     },
     tileView : {
         flex : 3,
+        margin : 5
     },
     nameBox : {
+        flex : 1,
+        width : '100%',
+        justifyContent : 'flex-end',
         textAlign : 'right',
-        paddingRight : '25px'
+        paddingRight : 25,
+        flexDirection : 'row'
     },  
     nameTitle : {
         color : '#c6771c',
-        fontSize : '17px'
+        fontSize : 17
     },
     nameBox1 : {
-        paddingBottom : '10px'
+        paddingBottom : 10
     } ,
     container : {
         flex: 1,       
@@ -40,46 +46,48 @@ export default StyleSheet.create({
     },
     snd_col:{
         flex:6,
-        maxWidth : '600px',
-        paddingLeft : '30px',
-        paddingRight : '30px',
+        maxWidth : 600,
+        paddingLeft : 30,
+        paddingRight : 30,
     },
     menu:{
         flex: 1,       
         flexDirection: "row",  
-        marginBottom:'15px',
-        marginTop : '15px',
-        gap : '30px'
+        marginBottom:10,
+        marginTop : 10,
+        alignItems : 'center'
     },
     menu_col:{
         flex: 1,       
         flexDirection: "column", 
         justifyContent:"center",
         alignItems:"center",
-        borderRadius:'16px',
+        borderRadius:16,
         backgroundColor:'white',
         overflow:'hidden',
-        border: '1px solid #cecece'
+        // border: '1px solid #cecece'
     },
     menu_icon:{
         flex:2,
         justifyContent:'center',
-        paddingBottom : '10px',
-        paddingTop : '10px'
+        paddingBottom : 10,
+        height : '100%',
+        paddingTop : 5
     },
     menu_text:{
         width: '100%',
+        height : '100%',
         backgroundColor:'#585858',
         flex:1,
         justifyContent:'center',
         alignItems:'center',
-       padding : '10px'
+        padding : 5
     },
     menu_word:{
         color:'white',
         fontWeight:'400',
-        lineHeight : '15px',
-        fontSize : '13px',
+        lineHeight : 11,
+        fontSize : 10,
         textAlign:'center'
     }
    
