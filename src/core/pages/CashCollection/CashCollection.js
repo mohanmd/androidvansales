@@ -28,8 +28,8 @@ const styles = StyleSheet.create({
     },
     headerWrapper : {
         backgroundColor : '#5f605e',
-        padding : 7,
-        paddingHorizontal : 20,
+        padding : 20,
+        paddingHorizontal : 30,
         textAlign : 'center'
     },
     tripCont : {
@@ -43,9 +43,10 @@ const styles = StyleSheet.create({
         flexDirection : 'row',
         alignItems : 'center',
         justifyContent : 'space-between',
-        paddingVertical : 5,
+        paddingVertical : 10,
         paddingHorizontal : 10,
-        backgroundColor : '#3d3d3d'
+        backgroundColor : '#3d3d3d',
+        height : 60
     },
     tab : {
         flexDirection : 'row',
@@ -53,7 +54,7 @@ const styles = StyleSheet.create({
     },
     SearchbarInout : {
         paddingHorizontal : 15,
-        paddingVertical : 0,
+        paddingVertical : 6,
         backgroundColor : '#808080',
         color : '#fff',
         width: '100%',
@@ -72,24 +73,25 @@ const styles = StyleSheet.create({
        textStyle : '#fff',
        justifyContent : 'flex-start',
        height : 30,
-       padding : 1
+       padding : 1,
+       fontSize : 18
     },
     tableCell : {
         justifyContent : 'flex-start',
-        fontSize : 11
+        fontSize : 18
     },
     actionBtn : {
         backgroundColor : '#ecb800',
         borderRadius : 4,
-        paddingHorizontal : 25,
-        paddingVertical : 5,
-        marginLeft : 10
+        paddingHorizontal : 30,
+        paddingVertical : 10,
+        marginLeft : 18
     },
     actionBtnText : {
-        fontSize : 13,
+        fontSize : 21,
         color :'#402608',
         fontWeight : 'bold',
-    }
+    },
 });
 
 const optionsPerPage = [2, 3, 4];
@@ -108,12 +110,13 @@ export default function CollectionList({navigation}) {
       setPage(0);
     }, [itemsPerPage]);
 
+  
     const navbar = {
         alignItems : 'center', 
         flexDirection : 'row', 
         justifyContent:'space-between',
-        paddingHorizontal : 10,
-        paddingVertical : 5
+        paddingHorizontal : 20,
+        paddingVertical : 10
     }
 
     const appbar = {
@@ -123,7 +126,7 @@ export default function CollectionList({navigation}) {
         flexDirection : 'row',
         margin : 0,
         paddingVertical : 0,
-        height: 37
+        height: 57
     }
     
     let tabTextC = {
@@ -131,11 +134,11 @@ export default function CollectionList({navigation}) {
         fontWeight : 'bold'
     }
     let tabText = {
-        fontSize : check ? 16 : 12,
+        fontSize : check ? 23 : 17,
         opacity : check ? 1 : 0.8,
     }
     let tabText1 = {
-        fontSize : check ? 12 : 16,
+        fontSize : check ? 17 : 23,
         opacity : check ? 0.8 : 1,
     }
     return (
@@ -145,16 +148,16 @@ export default function CollectionList({navigation}) {
                     <View  style={pages_style.container}>
                         <View  style={navbar}>
                             <View >
-                                <Image source={require('../../../../assets/images/van_logo.png')} style={{width: 120, height:50}} />
+                                <Image source={require('../../../../assets/images/van_logo.png')} style={{width: 130, height:60}} />
                             </View>
                             <View style={{ flexDirection : 'row', alignItems : 'center' }}>
-                                <Text style={{ color : '#fff'}}> <Text style={{ fontSize : 8 }}>Welcome</Text> <Text style={{ fontSize : 12, fontWeight : '600' }}> Hari</Text></Text>
+                            <Text style={{ color : '#fff'}}> <Text style={{ fontSize : 15 }}>Welcome</Text> <Text style={{ fontSize : 19, fontWeight : '600' }}> Hari</Text></Text>
                             </View>
                         </View>
                         <Appbar position="static" color="default" style={appbar}>
                             <View style={{ flexDirection : 'row', alignItems : 'center' }}>
-                                <IconButton onPress={() => navigation.navigate('Home') }  icon={{ uri :'https://cdn-icons-png.flaticon.com/512/1828/1828859.png' }} size={17} color="#e09300"></IconButton>
-                                <Text variant="h6" className={classes.title} style={{fontWeight : 'bold', color: '#c7781c', fontSize : 17}}>
+                                <IconButton onPress={() => navigation.navigate('Home') }  icon={{ uri :'https://cdn-icons-png.flaticon.com/512/1828/1828859.png' }} size={21} color="#e09300"></IconButton>
+                                <Text variant="h6" className={classes.title} style={{fontWeight : 'bold', color: '#c7781c', fontSize : 21, marginLeft : 5}}>
                                     Cash Collection
                                 </Text>
                             </View>
@@ -163,28 +166,28 @@ export default function CollectionList({navigation}) {
                         <View style={styles.headerWrapper}>
                             <View style={{ flexDirection : 'row', justifyContent : 'space-between' }}>
                                 <View style={styles.tripCont}>
-                                    <Text style={{ color : '#fff', fontSize : 14}}>Customer Name:</Text>
-                                    <Text style={{ color : '#fff', fontWeight : 'bold', fontSize : 16 }}>John Williams</Text>
+                                    <Text style={{ color : '#fff', fontSize : 18}}>Customer Name:</Text>
+                                    <Text style={{ color : '#fff', fontWeight : 'bold', fontSize : 21 }}>John Williams</Text>
                                 </View>
                                 <View  style={styles.tripCont}>
-                                    <Text style={{ color : '#fff', fontSize : 14}}>Customer No:</Text>
-                                    <Text style={{ color : '#fff', fontWeight : 'bold', fontSize : 16 }}>TN130002</Text>
+                                    <Text style={{ color : '#fff', fontSize : 18}}>Customer No:</Text>
+                                    <Text style={{ color : '#fff', fontWeight : 'bold', fontSize : 21 }}>TN130002</Text>
                                 </View>
                                 <View style={styles.tripCont}>
-                                    <Text style={{ color : '#fff', fontSize : 14}}>MTD Sales:</Text>
-                                    <Text style={{ color : '#fff', fontWeight : 'bold', fontSize : 16 }}>Sales</Text>
+                                    <Text style={{ color : '#fff', fontSize : 18}}>MTD Sales:</Text>
+                                    <Text style={{ color : '#fff', fontWeight : 'bold', fontSize : 21 }}>Sales</Text>
                                 </View>
                                 <View style={styles.tripCont}>
-                                    <Text style={{ color : '#fff', fontSize : 14}}>Sales Person:</Text>
-                                    <Text style={{ color : '#fff', fontWeight : 'bold', fontSize : 16 }}>Sameer</Text>
+                                    <Text style={{ color : '#fff', fontSize : 18}}>Sales Person:</Text>
+                                    <Text style={{ color : '#fff', fontWeight : 'bold', fontSize : 21 }}>Sameer</Text>
                                 </View>
                                 <View  style={styles.tripCont}>
-                                    <Text style={{ color : '#fff', fontSize : 14}}>Balance Amount:</Text>
-                                    <Text style={{ color : '#fff', fontWeight : 'bold', fontSize : 16 }}>3000</Text>
+                                    <Text style={{ color : '#fff', fontSize : 18}}>Balance Amount:</Text>
+                                    <Text style={{ color : '#fff', fontWeight : 'bold', fontSize : 21 }}>3000</Text>
                                 </View>
                                 <View  style={styles.tripCont}>
-                                    <Text style={{ color : '#fff', fontSize : 14}}>Balance Amount Recived:</Text>
-                                    <Text style={{ color : '#fff', fontWeight : 'bold', fontSize : 16 }}>4300</Text>
+                                    <Text style={{ color : '#fff', fontSize : 18}}>Balance Amount Recived:</Text>
+                                    <Text style={{ color : '#fff', fontWeight : 'bold', fontSize : 21 }}>4300</Text>
                                 </View>
                             </View>
                         </View>
@@ -198,29 +201,29 @@ export default function CollectionList({navigation}) {
                                 </TouchableOpacity>
                             </View>
                             <View style={styles.searchBar}>
-                                <TextInput style={styles.SearchbarInout} color="#ffff"  placeholderTextColor="#acacac"   labelStyle={{ color: "white", fontSize: 16 }} icon={{uri :'https://cdn-icons.flaticon.com/png/512/2811/premium/2811806.png?token=exp=1648803760~hmac=06ef013f5fdb53cb2245427b2fa4f14b'}}  placeholder="Search"/>
+                                <TextInput style={styles.SearchbarInout} color="#ffff"  placeholderTextColor="#acacac"   labelStyle={{ color: "white", fontSize: 21 }} icon={{uri :'https://cdn-icons.flaticon.com/png/512/2811/premium/2811806.png?token=exp=1648803760~hmac=06ef013f5fdb53cb2245427b2fa4f14b'}}  placeholder="Search"/>
                             </View>
                         </View>
 
                         <View style={pages_style.homepage_box}>
                             <View style={styles.container}>
                                     <View className="listview"   style={check && { display: 'none' }}>
-                                        <DataTable style={{ textAlign : 'left', flex : 1 }}>
+                                        <DataTable style={{ textAlign : 'left'}}>
                                             <DataTable.Header style={{ backgroundColor : '#7c7355', color: '#fff',  }}>
                                                 <DataTable.Title style={styles.tableHead} textStyle={{color : "#fff"}}>
-                                                    <Text style={{ color : '#fff', fontWeight : 'bold'}}>S.No</Text>
+                                                    <Text style={{ color : '#fff', fontWeight : 'bold', fontSize : 18}}>S.No</Text>
                                                 </DataTable.Title>
                                                 <DataTable.Title numeric style={styles.tableHead}>
-                                                    <Text style={{ color : '#fff', fontWeight : 'bold' }}>Order Number</Text>
+                                                    <Text style={{ color : '#fff', fontWeight : 'bold', fontSize : 18 }}>Order Number</Text>
                                                 </DataTable.Title>
                                                 <DataTable.Title numeric style={styles.tableHead}>
-                                                    <Text style={{ color : '#fff', fontWeight : 'bold' }}>Customer Name</Text>
+                                                    <Text style={{ color : '#fff', fontWeight : 'bold', fontSize : 18 }}>Customer Name</Text>
                                                 </DataTable.Title>
                                                 <DataTable.Title numeric style={styles.tableHead}>
-                                                    <Text style={{ color : '#fff', fontWeight : 'bold' }}>Customer City</Text>
+                                                    <Text style={{ color : '#fff', fontWeight : 'bold', fontSize : 18 }}>Customer City</Text>
                                                 </DataTable.Title>
                                                 <DataTable.Title numeric style={styles.tableHead}>
-                                                    <Text style={{ color : '#fff', fontWeight : 'bold' }}>Mobile Number</Text>
+                                                    <Text style={{ color : '#fff', fontWeight : 'bold', fontSize : 18 }}>Mobile Number</Text>
                                                 </DataTable.Title>
                                             </DataTable.Header>
 
@@ -268,11 +271,6 @@ export default function CollectionList({navigation}) {
                                                 optionsLabel={'Rows per page'}
                                             />
                                         </DataTable>
-                                        <View style={{ justifyContent : 'flex-end', flexDirection : 'row' }}>
-                                            <TouchableOpacity style={{ maxWidth : 120, width : '100%' }}>
-                                                <Text style={{ textAlign : 'right', color : 'blue' }}>+ Add Order</Text>
-                                            </TouchableOpacity>
-                                        </View>
 
                                         <View style={{ justifyContent : 'flex-end', flexDirection : 'row', marginTop : 30 }}>
                                             <TouchableOpacity style={styles.actionBtn}>

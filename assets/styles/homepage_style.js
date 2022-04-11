@@ -7,8 +7,9 @@ export default StyleSheet.create({
         borderTopLeftRadius : 40,
         borderBottomRightRadius : 40,
         flex : 1,
-        // flexDirection : 'row',
-        // alignItems : 'center',
+        flexDirection : 'column',
+        alignItems : 'center',
+        justifyContent : 'center',
         padding : 30,
         paddingTop : 9,
         backgroundColor: '#fff6f6e3',
@@ -16,10 +17,12 @@ export default StyleSheet.create({
     },
     tileView : {
         flex : 3,
-        margin : 5
+        margin : 5,
+        // height : 100
     },
     nameBox : {
-        flex : 1,
+        // flex : 1,
+        // height : 100,
         width : '100%',
         justifyContent : 'flex-end',
         textAlign : 'right',
@@ -28,7 +31,7 @@ export default StyleSheet.create({
     },  
     nameTitle : {
         color : '#c6771c',
-        fontSize : 17
+        fontSize : 20
     },
     nameBox1 : {
         paddingBottom : 10
@@ -38,17 +41,21 @@ export default StyleSheet.create({
         flexDirection: "row",
         justifyContent : 'center',
         alignItems : 'center',
+        // height : 600
     },
     first_col:{
         paddingVertical: 0,
         paddingHorizontal: 33,
-        flex:3
+        flex:3,
+        height: '100%',
+        justifyContent : 'center'
     },
     snd_col:{
         flex:6,
         maxWidth : 600,
         paddingLeft : 30,
         paddingRight : 30,
+        height : 450
     },
     menu:{
         flex: 1,       
@@ -86,8 +93,8 @@ export default StyleSheet.create({
     menu_word:{
         color:'white',
         fontWeight:'400',
-        lineHeight : 11,
-        fontSize : 10,
+        lineHeight : 15,
+        fontSize : 13,
         textAlign:'center'
     }
    

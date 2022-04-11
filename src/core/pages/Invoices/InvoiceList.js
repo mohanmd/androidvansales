@@ -28,8 +28,8 @@ const styles = StyleSheet.create({
     },
     headerWrapper : {
         backgroundColor : '#5f605e',
-        padding : 7,
-        paddingHorizontal : 20,
+        padding : 20,
+        paddingHorizontal : 30,
         textAlign : 'center'
     },
     tripCont : {
@@ -89,7 +89,19 @@ const styles = StyleSheet.create({
         fontSize : 13,
         color :'#402608',
         fontWeight : 'bold',
-    }
+    },
+    actionBtn : {
+        backgroundColor : '#ecb800',
+        borderRadius : 4,
+        paddingHorizontal : 30,
+        paddingVertical : 10,
+        marginLeft : 18
+    },
+    actionBtnText : {
+        fontSize : 21,
+        color :'#402608',
+        fontWeight : 'bold',
+    },
 });
 
 const optionsPerPage = [2, 3, 4];
@@ -108,12 +120,13 @@ export default function InvoiceList({navigation}) {
       setPage(0);
     }, [itemsPerPage]);
 
+ 
     const navbar = {
         alignItems : 'center', 
         flexDirection : 'row', 
         justifyContent:'space-between',
-        paddingHorizontal : 10,
-        paddingVertical : 5
+        paddingHorizontal : 20,
+        paddingVertical : 10
     }
 
     const appbar = {
@@ -122,8 +135,8 @@ export default function InvoiceList({navigation}) {
         justifyContent:'space-between',
         flexDirection : 'row',
         margin : 0,
-        paddingVertical : 0,
-        height: 37
+        paddingVertical : 4,
+        height: 60
     }
     
     let tabTextC = {
@@ -145,20 +158,20 @@ export default function InvoiceList({navigation}) {
                     <View  style={pages_style.container}>
                         <View  style={navbar}>
                             <View >
-                                <Image source={require('../../../../assets/images/van_logo.png')} style={{width: 120, height:50}} />
+                                <Image source={require('../../../../assets/images/van_logo.png')} style={{width: 130, height:60}} />
                             </View>
                             <View style={{ flexDirection : 'row', alignItems : 'center' }}>
-                                <Text style={{ color : '#fff'}}> <Text style={{ fontSize : 8 }}>Welcome</Text> <Text style={{ fontSize : 12, fontWeight : '600' }}> Hari</Text></Text>
+                            <Text style={{ color : '#fff'}}> <Text style={{ fontSize : 15 }}>Welcome</Text> <Text style={{ fontSize : 19, fontWeight : '600' }}> Hari</Text></Text>
                             </View>
                         </View>
                         <Appbar position="static" color="default" style={appbar}>
                             <View style={{ flexDirection : 'row', alignItems : 'center' }}>
-                                <IconButton onPress={() => navigation.navigate('Home') }  icon={{ uri :'https://cdn-icons-png.flaticon.com/512/1828/1828859.png' }} size={17} color="#e09300"></IconButton>
-                                <Text variant="h6" className={classes.title} style={{fontWeight : 'bold', color: '#c7781c', fontSize : 17}}>
+                                <IconButton onPress={() => navigation.navigate('Home') }  icon={{ uri :'https://cdn-icons-png.flaticon.com/512/1828/1828859.png' }} size={21} color="#e09300"></IconButton>
+                                <Text variant="h6" className={classes.title} style={{fontWeight : 'bold', color: '#c7781c', fontSize :21, marginLeft : 5}}>
                                    Invoice
                                 </Text>
                             </View>
-                            <View style={pages_style.searchBarWrap}>
+                            <View style={[pages_style.searchBarWrap, {maxWidth : 500}]}>
                                 <TextInput placeholder='Search by Customer No / Order No / Invoice No' style={pages_style.searchBar}></TextInput>
                             </View>
                         </Appbar> 
@@ -166,28 +179,28 @@ export default function InvoiceList({navigation}) {
                         <View style={styles.headerWrapper}>
                             <View style={{ flexDirection : 'row', justifyContent : 'space-between' }}>
                                 <View style={styles.tripCont}>
-                                    <Text style={{ color : '#fff', fontSize : 14}}>Customer Name:</Text>
-                                    <Text style={{ color : '#fff', fontWeight : 'bold', fontSize : 16 }}>John Williams</Text>
+                                    <Text style={{ color : '#fff', fontSize : 18}}>Customer Name:</Text>
+                                    <Text style={{ color : '#fff', fontWeight : 'bold', fontSize : 21 }}>John Williams</Text>
                                 </View>
                                 <View  style={styles.tripCont}>
-                                    <Text style={{ color : '#fff', fontSize : 14}}>Customer No:</Text>
-                                    <Text style={{ color : '#fff', fontWeight : 'bold', fontSize : 16 }}>TN130002</Text>
+                                    <Text style={{ color : '#fff', fontSize : 18}}>Customer No:</Text>
+                                    <Text style={{ color : '#fff', fontWeight : 'bold', fontSize : 21 }}>TN130002</Text>
                                 </View>
                                 <View style={styles.tripCont}>
-                                    <Text style={{ color : '#fff', fontSize : 14}}>MTD Sales:</Text>
-                                    <Text style={{ color : '#fff', fontWeight : 'bold', fontSize : 16 }}>2000</Text>
+                                    <Text style={{ color : '#fff', fontSize : 18}}>MTD Sales:</Text>
+                                    <Text style={{ color : '#fff', fontWeight : 'bold', fontSize : 21 }}>2000</Text>
                                 </View>
                                 <View style={styles.tripCont}>
-                                    <Text style={{ color : '#fff', fontSize : 14}}>Sales Order:</Text>
-                                    <Text style={{ color : '#fff', fontWeight : 'bold', fontSize : 16 }}>Sameer</Text>
+                                    <Text style={{ color : '#fff', fontSize : 18}}>Sales Order:</Text>
+                                    <Text style={{ color : '#fff', fontWeight : 'bold', fontSize : 21 }}>Sameer</Text>
                                 </View>
                                 <View  style={styles.tripCont}>
-                                    <Text style={{ color : '#fff', fontSize : 14}}>Sales Person:</Text>
-                                    <Text style={{ color : '#fff', fontWeight : 'bold', fontSize : 16 }}>3000</Text>
+                                    <Text style={{ color : '#fff', fontSize : 18}}>Sales Person:</Text>
+                                    <Text style={{ color : '#fff', fontWeight : 'bold', fontSize : 21 }}>3000</Text>
                                 </View>
                                 <View  style={styles.tripCont}>
-                                    <Text style={{ color : '#fff', fontSize : 14}}>Credit Balance:</Text>
-                                    <Text style={{ color : '#fff', fontWeight : 'bold', fontSize : 16 }}>4300</Text>
+                                    <Text style={{ color : '#fff', fontSize : 18}}>Credit Balance:</Text>
+                                    <Text style={{ color : '#fff', fontWeight : 'bold', fontSize : 21 }}>4300</Text>
                                 </View>
                             </View>
                         </View> 
@@ -195,34 +208,34 @@ export default function InvoiceList({navigation}) {
                         <View style={pages_style.homepage_box}>
                             <View style={styles.container}>
                                     <View className="listview" >
-                                        <DataTable style={{ textAlign : 'left', flex : 1 }}>
+                                        <DataTable style={{ textAlign : 'left' }}>
                                             <DataTable.Header style={{ backgroundColor : '#7c7355', color: '#fff',  }}>
                                                 <DataTable.Title style={[styles.tableHead, {width : 20}]} textStyle={{color : "#fff"}}>
-                                                    <Text style={{ color : '#fff', fontWeight : 'bold'}}>S.No</Text>
+                                                    <Text style={{ color : '#fff', fontWeight : 'bold', fontSize : 18}}>S.No</Text>
                                                 </DataTable.Title>
                                                 <DataTable.Title numeric style={styles.tableHead}>
-                                                    <Text style={{ color : '#fff', fontWeight : 'bold' }}>Article</Text>
+                                                    <Text style={{ color : '#fff', fontWeight : 'bold', fontSize : 18 }}>Article</Text>
                                                 </DataTable.Title>
                                                 <DataTable.Title numeric style={styles.tableHead}>
-                                                    <Text style={{ color : '#fff', fontWeight : 'bold' }}>Lot No</Text>
+                                                    <Text style={{ color : '#fff', fontWeight : 'bold', fontSize : 18 }}>Lot No</Text>
                                                 </DataTable.Title>
                                                 <DataTable.Title numeric style={styles.tableHead}>
-                                                    <Text style={{ color : '#fff', fontWeight : 'bold' }}>Description</Text>
+                                                    <Text style={{ color : '#fff', fontWeight : 'bold', fontSize : 18 }}>Description</Text>
                                                 </DataTable.Title>
                                                 <DataTable.Title numeric style={styles.tableHead}>
-                                                    <Text style={{ color : '#fff', fontWeight : 'bold' }}>Unit Price</Text>
+                                                    <Text style={{ color : '#fff', fontWeight : 'bold', fontSize : 18 }}>Unit Price</Text>
                                                 </DataTable.Title>
                                                 <DataTable.Title numeric style={styles.tableHead}>
-                                                    <Text style={{ color : '#fff', fontWeight : 'bold' }}>Available Stock</Text>
+                                                    <Text style={{ color : '#fff', fontWeight : 'bold', fontSize : 18 }}>Available Stock</Text>
                                                 </DataTable.Title>
                                                 <DataTable.Title numeric style={styles.tableHead}>
-                                                    <Text style={{ color : '#fff', fontWeight : 'bold' }}>Quantity</Text>
+                                                    <Text style={{ color : '#fff', fontWeight : 'bold', fontSize : 18 }}>Quantity</Text>
                                                 </DataTable.Title>
                                                 <DataTable.Title numeric style={styles.tableHead}>
-                                                    <Text style={{ color : '#fff', fontWeight : 'bold' }}>Discount %</Text>
+                                                    <Text style={{ color : '#fff', fontWeight : 'bold', fontSize : 18 }}>Discount %</Text>
                                                 </DataTable.Title>
                                                 <DataTable.Title numeric style={styles.tableHead}>
-                                                    <Text style={{ color : '#fff', fontWeight : 'bold' }}>Total</Text>
+                                                    <Text style={{ color : '#fff', fontWeight : 'bold', fontSize : 18 }}>Total</Text>
                                                 </DataTable.Title>
                                             </DataTable.Header>
 
@@ -285,23 +298,23 @@ export default function InvoiceList({navigation}) {
                                                 showFastPagination
                                                 optionsLabel={'Rows per page'}
                                             />
-                                        </DataTable>
+                                            </DataTable>
                                         
                                         
                                         <View style={pages_style.price_grid}>
                                             <View  style={pages_style.gridCol}>
-                                                <Text style={{ fontWeight : 'bold', fontSize :13, color : '#fff'}}>Total SKU :  4</Text>
+                                                <Text style={{ fontWeight : 'bold', fontSize :18, color : '#fff'}}>Total SKU :  4</Text>
                                             </View>
                                             <View  style={pages_style.gridCol}>
-                                                <Text style={{ fontWeight : 'bold', fontSize :13, color : '#fff'}}>Total Quantity :  400</Text>
+                                                <Text style={{ fontWeight : 'bold', fontSize :18, color : '#fff'}}>Total Quantity :  400</Text>
                                             </View>
                                             <View  style={pages_style.gridCol}>
-                                                <Text style={{ fontWeight : 'bold', fontSize :13, color : '#fff'}}>Invoice Discount :  0</Text>
+                                                <Text style={{ fontWeight : 'bold', fontSize :18, color : '#fff'}}>Invoice Discount :  0</Text>
                                             </View>
                                             <View  style={pages_style.gridCol}>
                                                 <View  style={{ textAlign :'right', paddingRight : 26}}>
-                                                    <Text style={{ fontWeight : 'bold', fontSize :15, color : '#ecb800'}}>Total :  $9000</Text>
-                                                    <Text style={{ fontWeight : 'bold', fontSize :15, textAlign: 'right' ,color : '#fff'}}>Net :  $9000</Text>
+                                                    <Text style={{ fontWeight : 'bold', fontSize :21, color : '#ecb800'}}>Total :  $9000</Text>
+                                                    <Text style={{ fontWeight : 'bold', fontSize :21, textAlign: 'right' ,color : '#fff'}}>Net :  $9000</Text>
                                                 </View>
                                             </View>
                                         </View>

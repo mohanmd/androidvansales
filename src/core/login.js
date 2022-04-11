@@ -1,5 +1,5 @@
 import React , { Component, Fragment }  from 'react'
-import { ImageBackground ,SafeAreaView, ScrollView , StyleSheet, Text, View, Image , TextInput ,Alert } from "react-native";
+import { ImageBackground, Dimensions ,SafeAreaView, ScrollView , StyleSheet, Text, View, Image , TextInput ,Alert } from "react-native";
 import { makeStyles } from "@material-ui/core/styles";
 import { Formik } from 'formik'
 import * as yup from 'yup';
@@ -7,7 +7,7 @@ import { Button  } from 'react-native-paper'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
-
+const wHeight = Dimensions.get('window').height;
 
 const HeaderButton = ({ handleSubmit, navigation }) => {
   React.useLayoutEffect(() => {
@@ -34,12 +34,12 @@ export default function Login({navigation}) {
   const inputStyle = {
     borderWidth: 1,
     borderColor: '#4e4e4e',
-    padding: 2,
+    padding: 10,
     paddingLeft : 15,
     paddingHorizontal : 5,
     borderRadius : 8,
-    marginBottom: 5,
-    fontSize: 10,
+    marginBottom: 16,
+    fontSize: 14,
     borderColor : '#fff',
     color : '#fff',
   };
@@ -68,76 +68,76 @@ export default function Login({navigation}) {
                 <Text style={styles.heading}>SAP {"\n"}Van Sales {"\n"}& {"\n"}Distribution</Text>
                 <Text style={styles.para}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </Text>
                 <Text  style={styles.para}>Lorem Ipsum has been the industry's standard dummy text ever
-since the 1500s, when an unknown printer took a galley of type
-and scrambled it to make a type specimen book. It has survived
-not only five centuries, but also the leap into electronic
-typesetting, remaining essentially unchanged. </Text>
+                                            since the 1500s, when an unknown printer took a galley of type
+                                            and scrambled it to make a type specimen book. It has survived
+                                            not only five centuries, but also the leap into electronic
+                                            typesetting, remaining essentially unchanged. </Text>
                 
               </View>
                <View style={styles.rightCol}>   
                 <View style={styles.innerBox}>
                   <View style={styles.darkbox}> 
                     <View>
-                        <Text style={{ fontSize : 18, color: '#fff', paddingBottom:10 }}>Login</Text>
-                    <Formik
+                        <Text style={{ fontSize : 26, color: '#fff', paddingBottom:20 }}>Login</Text>
+                        <Formik
                           onSubmit={values => console.log(values)}
                           initialValues={{  
-                        email: '', 
-                        password: '' 
-                      }}
+                            email: '', 
+                            password: '' 
+                          }}
 
-                    validationSchema={yup.object().shape({
-                      email: yup
-                        .string()
-                        .email()
-                        .required(),
-                      password: yup
-                        .string()
-                        .min(4)
-                        .max(10, 'Password should not excced 10 chars.')
-                        .required(),
-                    })}
-                  >
-        {({ values, handleChange, errors, setFieldTouched, touched, isValid, handleSubmit }) => (
-          <View  >        
-            <View >
-              <TextInput
-                value={values.email}
-                style={inputStyle}
-                onChangeText={handleChange('email')}
-                onBlur={() => setFieldTouched('email')}
-                placeholder="E-mail"
-                placeholderTextColor={'#fff'}
-              />
-              {touched.email && errors.email &&
-                <Text style={{ fontSize: 8, color: '#FF0D10', paddingBottom:10  }}>{errors.email}</Text>
-              }
-              <TextInput
-                value={values.password}
-                style={inputStyle}
-                onChangeText={handleChange('password')}
-                placeholder="Password"
-                onBlur={() => setFieldTouched('password')} 
-                secureTextEntry={true}
-                placeholderTextColor={'#fff'}
-              
-              />
-              {touched.password && errors.password &&
-                <Text style={{ fontSize: 8, color: '#FF0D10' }}>{errors.password}</Text>
-              }
-            </View>
+                          validationSchema={yup.object().shape({
+                            email: yup
+                              .string()
+                              .email()
+                              .required(),
+                            password: yup
+                              .string()
+                              .min(4)
+                              .max(10, 'Password should not excced 10 chars.')
+                              .required(),
+                          })}
+                        >
+                          {({ values, handleChange, errors, setFieldTouched, touched, isValid, handleSubmit }) => (
+                            <View  >        
+                              <View >
+                                <TextInput
+                                  value={values.email}
+                                  style={[inputStyle, {borderColor : errors.email ? 'red' : 'white'}]}
+                                  onChangeText={handleChange('email')}
+                                  onBlur={() => setFieldTouched('email')}
+                                  placeholder="E-mail"
+                                  placeholderTextColor={'#fff'}
+                                />
+                                {touched.email && errors.email &&
+                                  <Text style={{ fontSize: 12, color: '#FF0D10', paddingBottom:10  }}>{errors.email}</Text>
+                                }
+                                <TextInput
+                                  value={values.password}
+                                  style={[inputStyle, {borderColor : errors.password ? 'red' : 'white', marginBottom: 10}]}
+                                  onChangeText={handleChange('password')}
+                                  placeholder="Password"
+                                  onBlur={() => setFieldTouched('password')} 
+                                  secureTextEntry={true}
+                                  placeholderTextColor={'#fff'}
+                                
+                                />
+                                {touched.password && errors.password &&
+                                  <Text style={{ fontSize: 12, color: '#FF0D10' }}>{errors.password}</Text>
+                                }
+                              </View>
 
-            <View style={styles.loginButtons}>
-              <Button  onPress={() => goHome()} labelStyle={{fontSize: 10}} color='#fbac00' style = {{textTransform: 'capitalize', fontSize : 9}} >Login</Button>
-              <Button onPress={handleSubmit}   labelStyle={{fontSize: 10}}  color='#fbac00'  style = {{textTransform: 'capitalize'}} >Signup</Button>
-            </View>
-            
-                  
-          </View>
-          
-        )}
+                              <View style={styles.loginButtons}>
+                                <Button  onPress={() => goHome()} labelStyle={{fontSize: 16}} color='#fbac00' style = {{textTransform: 'capitalize', fontSize : 9}} >Login</Button>
+                                <Button onPress={handleSubmit}   labelStyle={{fontSize: 16}}  color='#fbac00'  style = {{textTransform: 'capitalize'}} >Signup</Button>
+                              </View>
+                              
+                                    
+                            </View>
+                            
+                          )}
         
-      </Formik>
+                        </Formik>
                     
                     </View>
                     
@@ -146,7 +146,7 @@ typesetting, remaining essentially unchanged. </Text>
               </View> 
           </View>
         </View>
-        </ImageBackground>
+      </ImageBackground>
 
 
     </ScrollView>
@@ -169,8 +169,8 @@ const styles = StyleSheet.create({
       flexDirection : 'row',
       alignItems : 'center',
       paddingTop : 30,
-      paddingHorizontal : 10
-      // padding : 30
+      paddingHorizontal : 10,
+      height:  400,
     },
     leftCol : {
       width : "50%",
@@ -200,7 +200,6 @@ const styles = StyleSheet.create({
     },
     darkbox : {
       backgroundColor : '#444',
-      // height : '100%',
       borderTopLeftRadius : 20,
       borderBottomRightRadius : 20,
       padding : 30,
@@ -214,8 +213,6 @@ const styles = StyleSheet.create({
     },  
     loginButtons : {
       flexDirection: 'row',
-      width : 200,
-      paddingTop : 2,
       alignItems : 'center',
       justifyContent : 'center',
       paddingTop : 10
@@ -229,11 +226,10 @@ const styles = StyleSheet.create({
     },  
     image:{
       flex : 1,
+      flexDirection : 'row',
       justifyContent:'center',
-      height: '100%',
-      // paddingBottom : 12,
-      // paddingTop : 30,
       width : '100%',
+      height: wHeight - 24,
     },
     main_wrapper : {
       height: '100%',
@@ -244,10 +240,10 @@ const styles = StyleSheet.create({
       maxWidth: 1100,
       margin: 'auto', 
       width: '100%',
-      height: '100%',
-      padding : 20,
+      padding : 30,
       paddingLeft :25,
-      paddingRight :25
+      paddingRight :25,
+      justifyContent : 'center'
     },
     navbar : {
       height : 60,
@@ -262,6 +258,6 @@ const styles = StyleSheet.create({
     },
     para : {
       marginBottom :15,
-      fontSize : 11
+      fontSize : 14
     },
   });

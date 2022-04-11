@@ -29,11 +29,11 @@ export default StyleSheet.create({
     },
     searchBar : {
         backgroundColor: '#fff',
-        padding: 0,
+        padding: 9,
         maxWidth: 800,
         width: '100%',
         paddingHorizontal : 16,
-        fontSize : 12,
+        fontSize : 19,
         borderRadius : 3
     },
     searchBarWrap : {
@@ -54,15 +54,15 @@ export default StyleSheet.create({
     },
     price_grid : {
         backgroundColor: "#5f615e",
-        height: 50,
+        height: 80,
         justifyContent: "flex-end",
         flexDirection : 'row',
         paddingHorizontal : 4,
-        paddingTop : 4,
+        paddingTop : 10,
         marginTop : 20
     },
     gridCol : {
-        paddingHorizontal : 10
+        paddingHorizontal : 16
     },
     save_cancel_btn_view:{
         display: 'flex',

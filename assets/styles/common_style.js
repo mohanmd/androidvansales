@@ -1,4 +1,7 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+
+const wHeight = Dimensions.get('window').height;
+
 export default StyleSheet.create({
     navbar : {
         height : '60px',
@@ -23,7 +26,6 @@ export default StyleSheet.create({
     container :{
         flex: 1,
         margin: 'auto',
-        // maxWidth : '1100px',
         width: '100%',
         height: '100%',
         paddingLeft: 25,
@@ -35,14 +37,14 @@ export default StyleSheet.create({
     image:{
         flex : 1,
         justifyContent:'center',
-        height: '100%',
+        height: wHeight - 23,
     },
     leftCol : {
         width : '50%',
     },
     heading : {
         textAlign : 'center',
-        fontSize: 20,
+        fontSize: 38,
         fontWeight: 'bold',
         marginBottom : 20,
         color : '#000'
@@ -50,7 +52,7 @@ export default StyleSheet.create({
     para : {
         marginBottom :15,
         color : '#444',
-        fontSize : 11
+        fontSize : 16
     },
  
 });

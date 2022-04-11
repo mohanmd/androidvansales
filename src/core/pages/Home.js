@@ -1,6 +1,6 @@
 import React , { Component, Fragment }  from 'react'
 import { ImageBackground ,SafeAreaView, ScrollView , StyleSheet, Text, View, Image ,TouchableOpacity, TextInput ,Alert } from "react-native";
-import { Button  } from 'react-native-paper' 
+import { Button, IconButton  } from 'react-native-paper' 
 import common_style from '../../../assets/styles/common_style';
 import homepage_style from '../../../assets/styles/homepage_style.js';
 
@@ -9,9 +9,11 @@ export default function Home({...props}) {
     return(
     <ScrollView  width="100%" height="100%" style={common_style.main_wrapper}>
         <ImageBackground source={require('../../../assets/images/login_bg.png')} resizeMode="cover" style={common_style.image}>
-            <View style={{ height : 70, paddingHorizontal : 15, paddingTop : 10, paddingBottom : 40  }}>
-                <Image source={require('../../../assets/images/van_logo.png')} style={{width: 120, height:40}} />
+            <View style={{ height : 80, paddingHorizontal : 20, paddingTop : 16, paddingBottom : 40, flexDirection : 'row', justifyContent : 'space-between'  }}>
+                <Image source={require('../../../assets/images/van_logo.png')} style={{width: 130, height:50}} />
+                <IconButton onPress={() => navigation.navigate('Login') }  icon={{ uri :'https://cdn-icons-png.flaticon.com/512/450/450387.png' }} size={21} color="#fff"></IconButton>
             </View>
+            
             <View  style={common_style.container}>
                 {/* <Header /> */}
                 <View style={homepage_style.homepage_box}>
@@ -29,7 +31,7 @@ export default function Home({...props}) {
                                 <TouchableOpacity style={homepage_style.tileView}>
                                     <View style={homepage_style.menu_col}>
                                         <View style={homepage_style.menu_icon}>
-                                            <Image source={require('../../../assets/images/icons/user.png')} style={{width: 60, height:40}} />
+                                            <Image source={require('../../../assets/images/icons/user.png')} style={{width: 80, height:60}} />
                                         </View>
                                         <View style={homepage_style.menu_text}><Text style={homepage_style.menu_word}>User{'\n'}Management</Text></View>
 
@@ -38,7 +40,7 @@ export default function Home({...props}) {
                                 <TouchableOpacity style={homepage_style.tileView}>
                                     <View style={homepage_style.menu_col}>
                                         <View style={homepage_style.menu_icon}>
-                                            <Image source={require('../../../assets/images/icons/enquiry.png')} style={{width: 60, height:40}} />
+                                            <Image source={require('../../../assets/images/icons/enquiry.png')} style={{width: 80, height:60}} />
                                         </View>
                                         <View style={homepage_style.menu_text}><Text style={homepage_style.menu_word}>Inquiry {'\n'}Order Booking</Text></View>
 
@@ -47,7 +49,7 @@ export default function Home({...props}) {
                                 <TouchableOpacity style={homepage_style.tileView}>
                                     <View style={homepage_style.menu_col}>
                                         <View style={homepage_style.menu_icon}>
-                                            <Image source={require('../../../assets/images/icons/material.png')} style={{width: 60, height:40}} />
+                                            <Image source={require('../../../assets/images/icons/material.png')} style={{width: 80, height:60}} />
                                         </View>
                                         <View style={homepage_style.menu_text}><Text style={homepage_style.menu_word}>Material{'\n'}Management</Text></View>
 
@@ -56,7 +58,7 @@ export default function Home({...props}) {
                                 <TouchableOpacity style={homepage_style.tileView}>
                                     <View style={homepage_style.menu_col}>
                                         <View style={homepage_style.menu_icon}>
-                                            <Image source={require('../../../assets/images/icons/customer.png')} style={{width: 60, height:40}} />
+                                            <Image source={require('../../../assets/images/icons/customer.png')} style={{width: 80, height:60}} />
                                         </View>
                                         <View style={homepage_style.menu_text}><Text style={homepage_style.menu_word}>Customer{'\n'}Management</Text></View>
 
@@ -67,16 +69,16 @@ export default function Home({...props}) {
                                 <TouchableOpacity style={homepage_style.tileView}>
                                     <View style={homepage_style.menu_col}>
                                         <View style={homepage_style.menu_icon}>
-                                            <Image source={require('../../../assets/images/icons/truck.png')} style={{width: 60, height:40}} />
+                                            <Image source={require('../../../assets/images/icons/truck.png')} style={{width: 80, height:60}} />
                                         </View>
                                         <View style={homepage_style.menu_text}><Text style={homepage_style.menu_word}>Truck{'\n'}Management</Text></View>
 
                                     </View>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={homepage_style.tileView}>
+                                <TouchableOpacity style={homepage_style.tileView}  onPress={() => navigation.navigate('PinDrop') }>
                                     <View style={homepage_style.menu_col}>
                                         <View style={homepage_style.menu_icon}>
-                                            <Image source={require('../../../assets/images/icons/route.png')} style={{width: 60, height:40}} />
+                                            <Image source={require('../../../assets/images/icons/route.png')} style={{width: 80, height:60}} />
                                         </View>
                                         <View style={homepage_style.menu_text}><Text style={homepage_style.menu_word}>Route{'\n'}Management</Text></View>
                                     </View>
@@ -84,7 +86,7 @@ export default function Home({...props}) {
                                 <TouchableOpacity style={homepage_style.tileView}  onPress={() => navigation.navigate('invoicelist') }>
                                     <View style={homepage_style.menu_col}>
                                         <View style={homepage_style.menu_icon}>
-                                            <Image source={require('../../../assets/images/icons/delivery.png')} style={{width: 60, height:40}} />
+                                            <Image source={require('../../../assets/images/icons/delivery.png')} style={{width: 80, height:60}} />
                                         </View>
                                         <View style={homepage_style.menu_text}><Text style={homepage_style.menu_word}>Delivery{'\n'}Invoice</Text></View>
                                     </View>
@@ -92,7 +94,7 @@ export default function Home({...props}) {
                                 <TouchableOpacity style={homepage_style.tileView} onClick={() => navigation.navigate('Orderlist') } >
                                     <View style={homepage_style.menu_col}>
                                         <View style={homepage_style.menu_icon}>
-                                            <Image source={require('../../../assets/images/icons/spotsale.png')} style={{width: 60, height:40}} />
+                                            <Image source={require('../../../assets/images/icons/spotsale.png')} style={{width: 80, height:60}} />
                                         </View>
                                         <View style={homepage_style.menu_text}><Text style={homepage_style.menu_word}>Spot Sales{'\n'} </Text></View>
                                     </View>
@@ -102,7 +104,7 @@ export default function Home({...props}) {
                                 <TouchableOpacity style={homepage_style.tileView} onPress={() => navigation.navigate('collection') }>
                                     <View style={homepage_style.menu_col}>
                                         <View style={homepage_style.menu_icon}>
-                                            <Image source={require('../../../assets/images/icons/collection_management.png')} style={{width: 60, height:40}} />
+                                            <Image source={require('../../../assets/images/icons/collection_management.png')} style={{width: 80, height:60}} />
                                         </View>
                                         <View style={homepage_style.menu_text}><Text style={homepage_style.menu_word}>Collection{'\n'}Management</Text></View>
                                     </View>
@@ -110,15 +112,15 @@ export default function Home({...props}) {
                                 <TouchableOpacity style={homepage_style.tileView}  onPress={() => navigation.navigate('DeliveryList') }>
                                     <View style={homepage_style.menu_col}>
                                         <View style={homepage_style.menu_icon}>
-                                            <Image source={require('../../../assets/images/icons/delivery_planing.png')} style={{width: 60, height:40}} />
+                                            <Image source={require('../../../assets/images/icons/delivery_planing.png')} style={{width: 80, height:60}} />
                                         </View>
                                         <View style={homepage_style.menu_text}><Text style={homepage_style.menu_word}>Delivery{'\n'}Planing</Text></View>
                                     </View>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={homepage_style.tileView}>
+                                <TouchableOpacity style={homepage_style.tileView} onPress={() => navigation.navigate('Returns') }>
                                     <View style={homepage_style.menu_col}>
                                         <View style={homepage_style.menu_icon}>
-                                            <Image source={require('../../../assets/images/icons/returns_management.png')} style={{width: 60, height:40}} />
+                                            <Image source={require('../../../assets/images/icons/returns_management.png')} style={{width: 80, height:60}} />
                                         </View>
                                         <View style={homepage_style.menu_text}><Text style={homepage_style.menu_word}>Returns{'\n'}Management</Text></View>
                                     </View>
@@ -126,7 +128,7 @@ export default function Home({...props}) {
                                 <TouchableOpacity style={homepage_style.tileView}>
                                     <View style={homepage_style.menu_col}>
                                         <View style={homepage_style.menu_icon}>
-                                            <Image source={require('../../../assets/images/icons/spot_purchase.png')} style={{width: 60, height:40}} />
+                                            <Image source={require('../../../assets/images/icons/spot_purchase.png')} style={{width: 80, height:60}} />
                                         </View>
                                         <View style={homepage_style.menu_text}><Text style={homepage_style.menu_word}>Spot{'\n'}Purchase</Text></View>
                                     </View>

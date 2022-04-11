@@ -1,11 +1,13 @@
 import React, {Fragment} from 'react';
 import { makeStyles } from "@material-ui/core/styles";
-import {  Toolbar, Modal,  ImageBackground, ScrollView, StyleSheet,TouchableOpacity, Text, View, Image, MenuIcon, TextInput, Grid } from "react-native";
+import {  Toolbar,Dimensions, Modal,  ImageBackground, ScrollView, StyleSheet,TouchableOpacity, Text, View, Image, MenuIcon, TextInput, Grid } from "react-native";
 import common_style from '../../../../assets/styles/common_style';
 import pages_style from '../../../../assets/styles/pages_style';
 import { Card, Button, Typography,Appbar, IconButton  } from 'react-native-paper';
+import MapView ,{ MAP_TYPES,PROVIDER_GOOGLE, PROVIDER_DEFAULT,UrlTile, Marker } from 'react-native-maps';
 
 import { Icon } from 'react-native-elements';
+import RouteMap from './RouteMap';
 const useStyles = makeStyles((theme) => ({
     input: {
       color: "#fff"
@@ -71,15 +73,30 @@ const styles = StyleSheet.create({
     },
     modalContent : {
         padding: 30
+    },
+    map : {
+        height: Dimensions.get('window').width, 
+        width : Dimensions.get('window').height
     }
   });
   
-export default function DeliveryList({navigation}) {
+export default function PinDrop({navigation}) {
     const [open, setOpen] = React.useState(false);    
     const [createTrip, setCreateTrip] = React.useState(false);
     const [SelectedValue, setSelectedValue] = React.useState('');
-    const [modalVisible, setModalVisible] = React.useState(false)
+    const [modalVisible, setModalVisible] = React.useState(false);
+    const [dta, setdta] = React.useState();
+    const [region, setRegion] =  React.useState({
+        latitude: 51.5079145,
+        longitude: -0.0899163,
+        latitudeDelta: 0.01,
+        longitudeDelta: 0.01,
+    });
 
+    const [marker, setMarker] =  React.useState({
+        
+    });
+     
     const openModal = () => {
         setModalVisible(true);
     };   
@@ -88,65 +105,15 @@ export default function DeliveryList({navigation}) {
         setModalVisible(false);
     };
 
-    const handleOpen = () => {
-        setOpen(true)
-    };
-    const handleClose = (value) => {
-        setOpen(false)
-        setSelectedValue(value)
-    };
+    // const addMarker = (e) => {
+    //     setMarker({ markers: [...setMarker.markers, { latlng: e.nativeEvent.coordinate }] })
+    // };
 
 
-    const classes = useStyles();
-    const itemList =  {
-        maxWidth : 170 , 
-        width : '100%', 
-        textAlign : 'center',
-        borderRadius : 14,
-        borderWidth : 1,
-        borderColor: '#ccc',
-        paddingTop : 18,
-        paddingBottom : 10,
-        margin : 10,
-        justifyContent : 'center',
-        alignItems : 'center',
-        backgroundColor : '#fff',
-        fontSize : 17
-    };
-    const itemTextTitle =  {
-        fontSize : 19,
-        color: '#186e9e',
-        fontWeight : '600',
-        marginBottom: 10
-    };
-    const itemTextLabel =  {
-        fontSize : 16,
-        marginBottom: 2
-    };
+    const classes = useStyles(); 
     const mb0 = {
         marginBottom: 0
-    }
-    const itemListAdd = {
-        maxWidth : 200 , 
-        width : '100%', 
-        height : 200 ,
-        textAlign : 'center',
-        borderRadius : 14,
-        // border: '1px solid #ccc',
-        flex: 1,
-        justifyContent : 'center',
-        alignItems : 'center',
-        // display: "flex",
-    }
-    const itemListAdd1 = {
-        flex: 1,
-        justifyContent : 'center',
-        alignItems : 'center'
-    }
-    const itemListAddText = { 
-        fontSize : 20,
-        color: '#186e9e',
-    }
+    } 
 
     const navbar = {
         alignItems : 'center', 
@@ -182,50 +149,34 @@ export default function DeliveryList({navigation}) {
                          <View style={{ flexDirection : 'row', alignItems : 'center' }}>
                             <IconButton  onPress={() => navigation.navigate('Home') } icon={{ uri :'https://cdn-icons-png.flaticon.com/512/1828/1828859.png' }} size={22} color="#e09300"></IconButton>
                             <Text variant="h6" className={classes.title} style={{fontWeight : 'bold', color: '#c7781c', fontSize : 21}}>
-                                Delivery Planning
+                                Add Location
                             </Text>
-                         </View>
-                        <View style={pages_style.searchBarWrap}>
-                            <TextInput placeholder='Search by Trip No / Truck No' style={pages_style.searchBar}></TextInput>
-                        </View>
+                         </View> 
                     </Appbar> 
-                    <View style={[pages_style.homepage_box,{minHeight : 580}]}>
-                        <View style={pages_style.orderList}>
-                            {tripList.map((data) => ( 
-                                <TouchableOpacity onPress={() => navigation.navigate('TripDetail')}  key={data.id} sx={{ minWidth: 275, textAlign : 'center', backgroundColor : '#fff' }} style={itemList}  >
-                                        <Text  component="div" style={itemTextLabel}>
-                                            Trip ID
-                                        </Text>
-                                        <Text style={itemTextTitle} >
-                                            {data.id}
-                                        </Text>
-                                        <Text  component="div" style={itemTextLabel}>
-                                            Truck Number
-                                        </Text>
-                                        <Text style={itemTextTitle} >
-                                            {data.truckno}
-                                        </Text>
-                                        <Text  component="div" style={itemTextLabel}>
-                                            Created Date
-                                        </Text>
-                                        <Text style={itemTextTitle} >
-                                            {data.date}
-                                        </Text>
-
-                                    </TouchableOpacity>
-                            ))}
-                            {createTrip && (
-                                <View sx={{ minWidth: 275 }}  style={itemListAdd}>
-                                    <View style={itemListAdd1}>
-                                        <Text  component="div" >
-                                            <Button style={itemListAddText} onClick={handleOpen}>+ </Button>
-                                        </Text>
-                                        <Text>
-                                            Create a Trip
-                                        </Text>
-                                    </View>
-                                </View>
-                            )}
+                    <View style={pages_style.homepage_box}>
+                        <View  style={{width : '100%', flexDirection : 'row'}}>
+                            {/* <MapView
+                                provider={PROVIDER_GOOGLE} // remove if not using Google Maps
+                                style={styles.map}
+                                initialRegion={{
+                                    latitude: 37.78825,
+                                    longitude: -122.4324,
+                                    latitudeDelta: 0.0922,
+                                    longitudeDelta: 0.0421,
+                                }}
+                                onRegionChangeComplete={(region) => setRegion(region)}
+                                onPress={(e) => setMarker({ markers: [{ latlng: e.nativeEvent.coordinate }] })}
+                                >
+                                    
+                                <Marker coordinate = {{latitude: 37.78825,longitude: -122.4324}}
+                                pinColor = {"purple"} // any color
+                                title={"title"}
+                                description={"description"}/>
+                            </MapView>
+                            <Text >Current latitude: {region.latitude}</Text>
+                            <Text >Current longitude: {region.longitude}</Text>
+                            <Text >Current longitude: {marker}</Text> */}
+                        <RouteMap></RouteMap>
                         </View>
                     </View>
                 </View>
