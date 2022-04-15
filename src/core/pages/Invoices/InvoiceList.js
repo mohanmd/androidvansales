@@ -1,9 +1,10 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useEffect} from 'react';
 import { makeStyles } from "@material-ui/core/styles";
-import {  Toolbar, Modal,  ImageBackground, ScrollView, StyleSheet,TouchableOpacity, Text, View, Image, MenuIcon, TextInput, Grid } from "react-native";
+import {  Toolbar, Modal,  ImageBackground, ScrollView, SafeAreaView ,  StyleSheet,TouchableOpacity, Text, View, Image, MenuIcon, TextInput, Grid } from "react-native";
 import common_style from '../../../../assets/styles/common_style';
 import pages_style from '../../../../assets/styles/pages_style';
-import { Card, Button, Typography,Appbar, IconButton, Searchbar, DataTable  } from 'react-native-paper';
+import { Card, Button, Typography,Appbar, IconButton, Searchbar, DataTable } from 'react-native-paper';
+import HeadeTop from '../component/HeaderTop';
 
 const useStyles = makeStyles((theme) => ({
     input: {
@@ -121,13 +122,76 @@ export default function InvoiceList({navigation}) {
     }, [itemsPerPage]);
 
  
-    const navbar = {
-        alignItems : 'center', 
-        flexDirection : 'row', 
-        justifyContent:'space-between',
-        paddingHorizontal : 20,
-        paddingVertical : 10
-    }
+    const [search, setSearch] = React.useState('');
+    const [filteredDataSource, setFilteredDataSource] =  React.useState([]);
+    const [masterDataSource, setMasterDataSource] =  React.useState([]);
+  
+    useEffect(() => {
+      fetch('https://jsonplaceholder.typicode.com/posts')
+        .then((response) => response.json())
+        .then((responseJson) => {
+          setFilteredDataSource(responseJson);
+          setMasterDataSource(responseJson);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }, []);
+
+    const searchFilterFunction = (text) => {
+        // Check if searched text is not blank
+        if (text) {
+          // Inserted text is not blank
+          // Filter the masterDataSource
+          // Update FilteredDataSource
+          const newData = masterDataSource.filter(function (item) {
+            const itemData = item.title
+              ? item.title.toUpperCase()
+              : ''.toUpperCase();
+            const textData = text.toUpperCase();
+            return itemData.indexOf(textData) > -1;
+          });
+          setFilteredDataSource(newData);
+          console.log(newData)
+          setSearch(text);
+        } else {
+          // Inserted text is blank
+          // Update FilteredDataSource with masterDataSource
+          setFilteredDataSource(masterDataSource);
+          setSearch(text);
+        }
+      };
+    
+      const ItemView = ({item}) => {
+        return (
+          // Flat List Item
+          <Text
+            style={styles.itemStyle}
+            onPress={() => getItem(item)}>
+              {item.id}
+              {'.'}
+              {item.title.toUpperCase()}
+          </Text>
+        );
+      };
+    
+      const ItemSeparatorView = () => {
+        return (
+          // Flat List Item Separator
+          <View
+            style={{
+              height: 0.5,
+              width: '100%',
+              backgroundColor: '#C8C8C8',
+            }}
+          />
+        );
+      };
+    
+      const getItem = (item) => {
+        // Function for click on an item
+        alert('Id : ' + item.id + ' Title : ' + item.title);
+      };
 
     const appbar = {
         backgroundColor: '#ffffffc4',
@@ -153,17 +217,29 @@ export default function InvoiceList({navigation}) {
     }
     return (
         <ScrollView  width="100%" height="100%" style={common_style.main_wrapper}>
+            <View style={{flex: 1}}>
+            <View style={styles.container}>
+                <TextInput
+                round
+                searchIcon={{size: 24}}
+                onChangeText={(text) => searchFilterFunction(text)}
+                onClear={(text) => searchFilterFunction('')}
+                placeholder="Type Here..."
+                value={search}
+                />
+                {/* <FlatList
+                data={filteredDataSource}
+                keyExtractor={(item, index) => index.toString()}
+                ItemSeparatorComponent={ItemSeparatorView}
+                renderItem={ItemView}
+                /> */}
+            </View>
+            </View>
             <View width="100%" height="100%" style={common_style.main_wrapper}>
                 <ImageBackground source={require('../../../../assets/images/login_bg.png')} resizeMode="cover" style={common_style.image}>
                     <View  style={pages_style.container}>
-                        <View  style={navbar}>
-                            <View >
-                                <Image source={require('../../../../assets/images/van_logo.png')} style={{width: 130, height:60}} />
-                            </View>
-                            <View style={{ flexDirection : 'row', alignItems : 'center' }}>
-                            <Text style={{ color : '#fff'}}> <Text style={{ fontSize : 15 }}>Welcome</Text> <Text style={{ fontSize : 19, fontWeight : '600' }}> Hari</Text></Text>
-                            </View>
-                        </View>
+                        
+                        <HeadeTop />
                         <Appbar position="static" color="default" style={appbar}>
                             <View style={{ flexDirection : 'row', alignItems : 'center' }}>
                                 <IconButton onPress={() => navigation.navigate('Home') }  icon={{ uri :'https://cdn-icons-png.flaticon.com/512/1828/1828859.png' }} size={21} color="#e09300"></IconButton>

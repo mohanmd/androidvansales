@@ -1,11 +1,16 @@
-import React , { Component, Fragment }  from 'react'
-import { ImageBackground, Dimensions ,SafeAreaView, ScrollView , StyleSheet, Text, View, Image , TextInput ,Alert } from "react-native";
+import React , { Component, Fragment, useEffect   }  from 'react'
+import { ImageBackground, Dimensions ,SafeAreaView, ScrollView , StyleSheet, Text, View, Image , TextInput  } from "react-native";
 import { makeStyles } from "@material-ui/core/styles";
 import { Formik } from 'formik'
 import * as yup from 'yup';
 import { Button  } from 'react-native-paper'
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import axios from 'react-native-axios';
+import { API_URL } from "../../env";
+import AsyncStorage from '@react-native-community/async-storage';
 
+
+
+const apiUrl = 'http://13.127.14.193:3030/login';
 
 const wHeight = Dimensions.get('window').height;
 
@@ -21,12 +26,25 @@ const HeaderButton = ({ handleSubmit, navigation }) => {
 }
 
 
+const loginAuthenticate = ( data ) => {
+  alert('click');
+  console.log(data);
+  // Send a POST request
+  // axios({
+  //   method: 'post',
+  //   url: apiUrl,
+  //   data: {
+  //     username: 'Fred',
+  //     password: 'Flintstone'
+  //   }
+  // });
+}
 
 
 export default function Login({navigation}) {
   const fieldRef = React.createRef();
 
- // const [text, onChangeText] = React.useState("");
+ const [curentUser, setCurrentUser] = React.useState("");
 
   const [username, setUsername] = React.useState("dsf");
   const [password, setpassword] = React.useState(null);
@@ -44,14 +62,45 @@ export default function Login({navigation}) {
     color : '#fff',
   };
 
-  const goHome = () =>{
+  const  goHome = async (data) =>{
     // alert('Your Logged In');
-    navigation.navigate('Home');
+    await navigation.navigate('Home');
+    await AsyncStorage.setItem("user", JSON.stringify(data));
   }
-  const onsubmit = values => {
-    console.log('submitting form', values)
+  const onsubmit = async  (values) => {
+    console.log('submitting form', values);
+    // AsyncStorage.setItem("token", 'AAABBBCCC');
+
+    // e.preventDefault()
+      const userObject = {
+        email: values.email,
+        password: values.password,
+        strategy : 'local'
+      };
+    axios.post(`${API_URL}/login`, userObject)
+        .then(async (res) => {
+            alert('Login Success');
+            goHome(res.data);
+            // await AsyncStorage.setItem("user", JSON.stringify(res?.data));
+            // await AsyncStorage.setItem("accessToken", JSON.stringify(res?.data));
+        }).catch((error) => {
+            console.log(error)
+        });
+    // this.setState({ name: '', email: '' })
   }
-  const onSubmit = data => console.log(data)
+ 
+  useEffect(() => {
+    const getUser = async()=>{
+      console.log(API_URL); 
+      let user = await AsyncStorage.getItem("user");
+      setCurrentUser(JSON.parse(user));
+      if(user){
+        navigation.navigate('Home');
+      }
+    }
+    getUser();
+  }, []) 
+
 
 
 
@@ -80,7 +129,7 @@ export default function Login({navigation}) {
                     <View>
                         <Text style={{ fontSize : 26, color: '#fff', paddingBottom:20 }}>Login</Text>
                         <Formik
-                          onSubmit={values => console.log(values)}
+                          onSubmit={values => onsubmit(values)}
                           initialValues={{  
                             email: '', 
                             password: '' 
@@ -128,8 +177,10 @@ export default function Login({navigation}) {
                               </View>
 
                               <View style={styles.loginButtons}>
-                                <Button  onPress={() => goHome()} labelStyle={{fontSize: 16}} color='#fbac00' style = {{textTransform: 'capitalize', fontSize : 9}} >Login</Button>
-                                <Button onPress={handleSubmit}   labelStyle={{fontSize: 16}}  color='#fbac00'  style = {{textTransform: 'capitalize'}} >Signup</Button>
+                                {/* <Button  onPress={getItemL} labelStyle={{fontSize: 16}} color='#fbac00' style = {{textTransform: 'capitalize', fontSize : 9}} >Login</Button> */}
+
+                                <Button  onPress={handleSubmit} labelStyle={{fontSize: 16}} color='#fbac00' style = {{textTransform: 'capitalize', fontSize : 9}} >Login</Button>
+                                {/* <Button onPress={handleSubmit}   labelStyle={{fontSize: 16}}  color='#fbac00'  style = {{textTransform: 'capitalize'}} >Signup</Button> */}
                               </View>
                               
                                     

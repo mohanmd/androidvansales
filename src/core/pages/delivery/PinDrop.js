@@ -8,6 +8,7 @@ import MapView ,{ MAP_TYPES,PROVIDER_GOOGLE, PROVIDER_DEFAULT,UrlTile, Marker } 
 
 import { Icon } from 'react-native-elements';
 import RouteMap from './RouteMap';
+import HeadeTop from '../component/HeaderTop';
 const useStyles = makeStyles((theme) => ({
     input: {
       color: "#fff"
@@ -115,13 +116,6 @@ export default function PinDrop({navigation}) {
         marginBottom: 0
     } 
 
-    const navbar = {
-        alignItems : 'center', 
-        flexDirection : 'row', 
-        justifyContent:'space-between',
-        paddingHorizontal : 20,
-        paddingVertical : 10
-    }
 
     const appbar = {
         backgroundColor: '#ffffffc4',
@@ -136,14 +130,8 @@ export default function PinDrop({navigation}) {
         <View width="100%" height="100%" style={common_style.main_wrapper}>
             <ImageBackground source={require('../../../../assets/images/login_bg.png')} resizeMode="cover" style={common_style.image}>
                 <View  style={pages_style.container}>
-                    <View  style={navbar}>
-                        <View >
-                            <Image source={require('../../../../assets/images/van_logo.png')} style={{width: 130, height:60}} />
-                        </View>
-                        <View style={{ flexDirection : 'row', alignItems : 'center' }}>
-                           <Text style={{ color : '#fff'}}> <Text style={{ fontSize : 15 }}>Welcome</Text> <Text style={{ fontSize : 19, fontWeight : '600' }}> Hari</Text></Text>
-                        </View>
-                    </View>
+                    
+                    <HeadeTop />
                     {/* <HeaderSecondary /> */}
                      <Appbar position="static" color="default" style={appbar}>
                          <View style={{ flexDirection : 'row', alignItems : 'center' }}>

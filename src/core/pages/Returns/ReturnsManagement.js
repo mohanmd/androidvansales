@@ -5,6 +5,7 @@ import common_style from '../../../../assets/styles/common_style';
 import pages_style from '../../../../assets/styles/pages_style';
 import { Card, Button, Typography,Appbar, IconButton, DataTable, Modal  } from 'react-native-paper';
 import { CameraPage } from '../../camera';
+import HeadeTop from '../component/HeaderTop';
 
 
 const styles = StyleSheet.create({
@@ -20,11 +21,10 @@ const styles = StyleSheet.create({
         borderRadius : 4,
         paddingHorizontal : 25,
         paddingVertical : 5,
-        marginLeft : 10,
-        marginBottom : 7
+        marginBottom : 10
     },
     actionBtnText : {
-        fontSize : 13,
+        fontSize : 14,
         color :'#402608',
         fontWeight : 'bold',
     },
@@ -39,15 +39,15 @@ const styles = StyleSheet.create({
         fontSize : 11
     },
     flex2 : {
-        flex : 2,
-        justifyContent : 'flex-start',
+        flex : 1,
+        justifyContent : 'center',
     },
     StatusSucess : {
         color : '#09af00',
         borderRadius : 20,
         padding: 10,
         width : 180,
-        fontSize : 10,
+        fontSize : 13,
         fontWeight : 'bold'
     },
     StatusPending : {
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
         borderRadius : 20,
         padding: 10,
         width : 180,
-        fontSize : 10,
+        fontSize : 13,
         fontWeight : 'bold'
     },
     returnsModal : {
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
         flexDirection : 'row',
         margin : 0,
         paddingVertical : 0,
-        height: 37
+        height: 70
     }
 })
 
@@ -144,20 +144,12 @@ export default function ReturnsManagement({navigation}) {
         <ScrollView  width="100%" height="100%" style={common_style.main_wrapper}>
             <View width="100%" height="100%" style={common_style.main_wrapper}>
                 <ImageBackground source={require('../../../../assets/images/login_bg.png')} resizeMode="cover" style={common_style.image}>
-                    <View  style={pages_style.container}>
-                        <View   style={styles.navbar}>
-                            <View >
-                                <Image source={require('../../../../assets/images/van_logo.png')} style={{width: 120, height:50}} />
-                            </View>
-                            <View style={{ flexDirection : 'row', alignItems : 'center' }}>
-                                <Text style={{ color : '#fff'}}> <Text style={{ fontSize : 8 }}>Welcome</Text> <Text style={{ fontSize : 12, fontWeight : '600' }}> Hari</Text></Text>
-                            </View>
-                        </View>
-                    </View>
+
+                    <HeadeTop />
                     <Appbar position="static" color="default" style={styles.appbar}>
                         <View style={{ flexDirection : 'row', alignItems : 'center' }}>
-                            <IconButton onPress={() => navigation.navigate('Home') }  icon={{ uri :'https://cdn-icons-png.flaticon.com/512/1828/1828859.png' }} size={17} color="#e09300"></IconButton>
-                            <Text variant="h6"  style={{fontWeight : 'bold', color: '#c7781c', fontSize : 17}}>
+                            <IconButton onPress={() => navigation.navigate('Home') }  icon={{ uri :'https://cdn-icons-png.flaticon.com/512/1828/1828859.png' }} size={22} color="#e09300"></IconButton>
+                            <Text variant="h6"   style={{fontWeight : 'bold', color: '#c7781c', fontSize : 21}}>
                                 Returns Management
                             </Text>
                         </View>
@@ -171,7 +163,6 @@ export default function ReturnsManagement({navigation}) {
                             <TouchableOpacity style={styles.actionBtn}  onPress={showModal}>
                                 <Text component="span" style={styles.actionBtnText} >Create Returns</Text>
                             </TouchableOpacity>
-                            
                         </View>
                         <DataTable style={{ textAlign : 'left', flex : 1 }}>
                             <DataTable.Header style={{ backgroundColor : '#7c7355', color: '#fff',  }}>
@@ -207,7 +198,9 @@ export default function ReturnsManagement({navigation}) {
                                     <DataTable.Cell numeric style={[styles.tableCell, styles.flex2]}>Online Payment</DataTable.Cell>
                                     <DataTable.Cell numeric style={[styles.tableCell, styles.flex2]}>Ordered product are not same</DataTable.Cell>
                                     <DataTable.Title numeric style={[styles.tableHead, styles.flex2]}>
-                                        <Text >Product Img</Text>
+                                        <Image style={{ width : 100, height : 100 }} source={{ uri :'https://cdn-icons-png.flaticon.com/512/1829/1829589.png' }} />
+                                        <Image source={{uri: 'https://reactjs.org/logo-og.png'}}
+       style={{width: 400, height: 400}} /> 
                                     </DataTable.Title>
                                     <DataTable.Cell numeric style={[styles.tableCell, {justifyContent : 'center'}]}>
                                         { data.status 

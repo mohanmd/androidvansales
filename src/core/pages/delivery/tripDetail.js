@@ -5,6 +5,7 @@ import common_style from '../../../../assets/styles/common_style';
 import pages_style from '../../../../assets/styles/pages_style';
 import { Card, Button, Typography,Appbar, IconButton, Searchbar, DataTable  } from 'react-native-paper';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'; // remove PROVIDER_GOOGLE import if not using Google Maps
+import HeadeTop from '../component/HeaderTop';
 
 const useStyles = makeStyles((theme) => ({
     input: {
@@ -116,13 +117,6 @@ export default function TripDetail({navigation}) {
       setPage(0);
     }, [itemsPerPage]);
 
-    const navbar = {
-        alignItems : 'center', 
-        flexDirection : 'row', 
-        justifyContent:'space-between',
-        paddingHorizontal : 20,
-        paddingVertical : 10
-    }
 
 
     const appbar = {
@@ -151,14 +145,8 @@ export default function TripDetail({navigation}) {
             <View width="100%" height="100%" style={common_style.main_wrapper}>
                 <ImageBackground source={require('../../../../assets/images/login_bg.png')} resizeMode="cover" style={common_style.image}>
                     <View  style={pages_style.container}>
-                        <View  style={navbar}>
-                            <View >
-                                <Image source={require('../../../../assets/images/van_logo.png')} style={{width: 130, height:60}} />
-                            </View>
-                            <View style={{ flexDirection : 'row', alignItems : 'center' }}>
-                            <Text style={{ color : '#fff'}}> <Text style={{ fontSize : 15 }}>Welcome</Text> <Text style={{ fontSize : 19, fontWeight : '600' }}> Hari</Text></Text>
-                            </View>
-                        </View>
+                        
+                        <HeadeTop />
                         <Appbar position="static" color="default" style={appbar}>
                             <View style={{ flexDirection : 'row', alignItems : 'center' }}>
                                 <IconButton onPress={() => navigation.navigate('Home')} icon={{ uri :'https://cdn-icons-png.flaticon.com/512/1828/1828859.png' }} size={21} color="#e09300"></IconButton>

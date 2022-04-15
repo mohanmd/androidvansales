@@ -1,12 +1,13 @@
 import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
     homepage_box : {
-        minHeight: 400,
         width: '100%',
         borderBottomRightRadius : 40,
         padding : 30,
         paddingTop : 9,
-        backgroundColor: '#fff6f6e3'
+        backgroundColor: '#fff6f6e3',
+        flex : 1,
+        overflow : 'scroll'
     },
     navbar : {
         height : '60px',
@@ -48,6 +49,7 @@ export default StyleSheet.create({
         paddingLeft : 10,
         paddingRight : 10,
         flexWrap : 'wrap',
+        overflow : 'scroll'
     },
     listItem : {
         maxWidth : '300px'

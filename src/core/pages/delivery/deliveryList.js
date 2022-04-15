@@ -1,11 +1,16 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useEffect} from 'react';
 import { makeStyles } from "@material-ui/core/styles";
 import {  Toolbar, Modal,  ImageBackground, ScrollView, StyleSheet,TouchableOpacity, Text, View, Image, MenuIcon, TextInput, Grid } from "react-native";
 import common_style from '../../../../assets/styles/common_style';
 import pages_style from '../../../../assets/styles/pages_style';
 import { Card, Button, Typography,Appbar, IconButton  } from 'react-native-paper';
+import { API_URL } from "../../../../env";
+import axios from 'react-native-axios';
+import AsyncStorage from '@react-native-community/async-storage';
+
 
 import { Icon } from 'react-native-elements';
+import HeadeTop from '../component/HeaderTop'; 
 const useStyles = makeStyles((theme) => ({
     input: {
       color: "#fff"
@@ -23,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-let tripList = [
+let tripList1 = [
     { 'id' : 'T120002121', 'truckno' : 'T13N00121', 'date' : '16/03/2022'},
     { 'id' : 'T120002122', 'truckno' : 'T13N00146', 'date' : '06/04/2022'},
     { 'id' : 'T120002123', 'truckno' : 'T13A00132', 'date' : '26/05/2022'},
@@ -78,7 +83,13 @@ export default function DeliveryList({navigation}) {
     const [open, setOpen] = React.useState(false);    
     const [createTrip, setCreateTrip] = React.useState(false);
     const [SelectedValue, setSelectedValue] = React.useState('');
-    const [modalVisible, setModalVisible] = React.useState(false)
+    const [modalVisible, setModalVisible] = React.useState(false);
+    const [currentUser, setCurrentUser] = React.useState(''); 
+    const [tripList, setTripList] = React.useState('');  
+ 
+    const [search, setSearch] = React.useState('');
+    const [filteredDataSource, setFilteredDataSource] =  React.useState([]);
+    const [masterDataSource, setMasterDataSource] =  React.useState([]);
 
     const openModal = () => {
         setModalVisible(true);
@@ -96,13 +107,76 @@ export default function DeliveryList({navigation}) {
         setSelectedValue(value)
     };
 
+   
+    useEffect(()=>{
+        
+        const getUser = async()=>{
+            console.log(API_URL); 
+            let user = await AsyncStorage.getItem("user1");
+            setCurrentUser(JSON.parse(user?.user));
+        }
+        getUser();
+
+        // call trip list
+        axios.get(`${API_URL}/trip`, currentUser?._id)
+            .then(async (res) => {
+                console.log(res.json());
+                if(res.status == '200'){
+                    setTripList(res?.data);
+                    setFilteredDataSource(res?.data);
+                    setMasterDataSource(res?.data);
+                }else{
+                    alert('Something went wrong');
+                }
+                // await AsyncStorage.setItem("user", JSON.stringify(res?.data));
+                // await AsyncStorage.setItem("accessToken", JSON.stringify(res?.data));
+            }).catch((error) => {
+                console.log(error)
+        });
+
+        console.log(currentUser) ;
+        // axios.get(`${API_URL}/login`, userObject)
+        // .then(async (res) => {
+        //     console.log(res.data);
+        //     alert('Login Success');
+        //     goHome();
+        //     // await AsyncStorage.setItem("user", JSON.stringify(res?.data));
+        //     // await AsyncStorage.setItem("accessToken", JSON.stringify(res?.data));
+        // }).catch((error) => {
+        //     console.log(error)
+        // });
+    }, []);
+    
+  
+
+
+    const searchFilterFunction = (text) => {
+        // Check if searched text is not blank
+        if (text) {
+          const newData = masterDataSource.filter(function (item) {
+            const itemData = item.title
+              ? item.title.toUpperCase()
+              : ''.toUpperCase();
+            const textData = text.toUpperCase();
+            return itemData.indexOf(textData) > -1;
+          });
+          setFilteredDataSource(newData);
+          console.log(newData);
+          setSearch(text);
+        } else {
+          // Inserted text is blank
+          // Update FilteredDataSource with masterDataSource
+          setFilteredDataSource(masterDataSource);
+          setSearch(text);
+        }
+    };
 
     const classes = useStyles();
     const itemList =  {
-        maxWidth : 170 , 
+        maxWidth : 180 , 
         width : '100%', 
         textAlign : 'center',
-        borderRadius : 14,
+        borderRadius : 14, 
         borderWidth : 1,
         borderColor: '#ccc',
         paddingTop : 18,
@@ -148,13 +222,6 @@ export default function DeliveryList({navigation}) {
         color: '#186e9e',
     }
 
-    const navbar = {
-        alignItems : 'center', 
-        flexDirection : 'row', 
-        justifyContent:'space-between',
-        paddingHorizontal : 20,
-        paddingVertical : 10
-    }
 
     const appbar = {
         backgroundColor: '#ffffffc4',
@@ -164,19 +231,15 @@ export default function DeliveryList({navigation}) {
         justifyContent:'space-between',
         flexDirection : 'row'
     }
+
+
   return (
-    <ScrollView  >
+    <View   contentContainerStyle={{ flexGrow: 1 }} scrollEnabled={true}>
         <View width="100%" height="100%" style={common_style.main_wrapper}>
             <ImageBackground source={require('../../../../assets/images/login_bg.png')} resizeMode="cover" style={common_style.image}>
                 <View  style={pages_style.container}>
-                    <View  style={navbar}>
-                        <View >
-                            <Image source={require('../../../../assets/images/van_logo.png')} style={{width: 130, height:60}} />
-                        </View>
-                        <View style={{ flexDirection : 'row', alignItems : 'center' }}>
-                           <Text style={{ color : '#fff'}}> <Text style={{ fontSize : 15 }}>Welcome</Text> <Text style={{ fontSize : 19, fontWeight : '600' }}> Hari</Text></Text>
-                        </View>
-                    </View>
+                    
+                    <HeadeTop />
                     {/* <HeaderSecondary /> */}
                      <Appbar position="static" color="default" style={appbar}>
                          <View style={{ flexDirection : 'row', alignItems : 'center' }}>
@@ -186,48 +249,56 @@ export default function DeliveryList({navigation}) {
                             </Text>
                          </View>
                         <View style={pages_style.searchBarWrap}>
-                            <TextInput placeholder='Search by Trip No / Truck No' style={pages_style.searchBar}></TextInput>
+                            <TextInput placeholder='Search by Trip No / Truck No' style={pages_style.searchBar}
+                                onChangeText={(text) => searchFilterFunction(text)}
+                                onClear={(text) => searchFilterFunction('')}
+                                value={search}
+                            ></TextInput>
                         </View>
                     </Appbar> 
-                    <View style={[pages_style.homepage_box,{minHeight : 580}]}>
-                        <View style={pages_style.orderList}>
-                            {tripList.map((data) => ( 
-                                <TouchableOpacity onPress={() => navigation.navigate('TripDetail')}  key={data.id} sx={{ minWidth: 275, textAlign : 'center', backgroundColor : '#fff' }} style={itemList}  >
+                    
+                    <ScrollView   contentContainerStyle={{ flexGrow: 1 }} scrollEnabled={true}>
+                        <View style={[pages_style.homepage_box]}>
+                            <View style={pages_style.orderList}>
+ 
+                                {filteredDataSource && filteredDataSource.map((data) => ( 
+                                    <TouchableOpacity onPress={() => navigation.navigate('TripDetail')}  key={data._id} sx={{ minWidth: 275, textAlign : 'center', backgroundColor : '#fff' }} style={itemList}  >
                                         <Text  component="div" style={itemTextLabel}>
                                             Trip ID
                                         </Text>
                                         <Text style={itemTextTitle} >
-                                            {data.id}
+                                            {data.tripid}
                                         </Text>
                                         <Text  component="div" style={itemTextLabel}>
                                             Truck Number
                                         </Text>
                                         <Text style={itemTextTitle} >
-                                            {data.truckno}
+                                            {data?.truckdata[0]?.truckno}
                                         </Text>
                                         <Text  component="div" style={itemTextLabel}>
                                             Created Date
                                         </Text>
                                         <Text style={itemTextTitle} >
-                                            {data.date}
+                                            {data.createdate}
                                         </Text>
 
                                     </TouchableOpacity>
-                            ))}
-                            {createTrip && (
-                                <View sx={{ minWidth: 275 }}  style={itemListAdd}>
-                                    <View style={itemListAdd1}>
-                                        <Text  component="div" >
-                                            <Button style={itemListAddText} onClick={handleOpen}>+ </Button>
-                                        </Text>
-                                        <Text>
-                                            Create a Trip
-                                        </Text>
+                                )) || null}
+                                {createTrip && (
+                                    <View sx={{ minWidth: 275 }}  style={itemListAdd}>
+                                        <View style={itemListAdd1}>
+                                            <Text  component="div" >
+                                                <Button style={itemListAddText} onClick={handleOpen}>+ </Button>
+                                            </Text>
+                                            <Text>
+                                                Create a Trip
+                                            </Text>
+                                        </View>
                                     </View>
-                                </View>
-                            )}
+                                )}
+                            </View>
                         </View>
-                    </View>
+                    </ScrollView>
                 </View>
             </ImageBackground>
         
@@ -259,6 +330,6 @@ export default function DeliveryList({navigation}) {
             </View>
           </View>
         </Modal>
-    </ScrollView>
+    </View>
     )
 }

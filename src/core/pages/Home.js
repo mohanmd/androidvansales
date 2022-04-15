@@ -3,17 +3,31 @@ import { ImageBackground ,SafeAreaView, ScrollView , StyleSheet, Text, View, Ima
 import { Button, IconButton  } from 'react-native-paper' 
 import common_style from '../../../assets/styles/common_style';
 import homepage_style from '../../../assets/styles/homepage_style.js';
+import HeaderTop from './component/HeaderTop';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export default function Home({...props}) {
-     const { navigation } = props
+     const { navigation } = props;
+    
+     const logout = async ()=>{
+        try {
+            await AsyncStorage.removeItem('user1');
+            console.log('user Logg off');
+            navigation.navigate('Login');
+        }
+        catch(exception) {
+            console.log(exception);
+        }
+    }
+
     return(
     <ScrollView  width="100%" height="100%" style={common_style.main_wrapper}>
         <ImageBackground source={require('../../../assets/images/login_bg.png')} resizeMode="cover" style={common_style.image}>
-            <View style={{ height : 80, paddingHorizontal : 20, paddingTop : 16, paddingBottom : 40, flexDirection : 'row', justifyContent : 'space-between'  }}>
+            {/* <View style={{ height : 80, paddingHorizontal : 20, paddingTop : 16, paddingBottom : 40, flexDirection : 'row', justifyContent : 'space-between'  }}>
                 <Image source={require('../../../assets/images/van_logo.png')} style={{width: 130, height:50}} />
-                <IconButton onPress={() => navigation.navigate('Login') }  icon={{ uri :'https://cdn-icons-png.flaticon.com/512/450/450387.png' }} size={21} color="#fff"></IconButton>
-            </View>
-            
+                <IconButton onPress={() => logout() }  icon={{ uri :'https://cdn-icons-png.flaticon.com/512/450/450387.png' }} size={21} color="#fff"></IconButton>
+            </View> */}
+            <HeaderTop props={props}/>
             <View  style={common_style.container}>
                 {/* <Header /> */}
                 <View style={homepage_style.homepage_box}>
